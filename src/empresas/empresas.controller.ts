@@ -8,8 +8,9 @@ export class EmpresasController {
   constructor(private readonly empresasService: EmpresasService) {}
 
   @Post()
-  create(@Body() createEmpresaDto: CreateEmpresaDto) {
-    return this.empresasService.create(createEmpresaDto);
+  create(@Body() body : any) {
+    return this.
+      empresasService.create(body);
   }
 
   @Get()
@@ -23,9 +24,15 @@ export class EmpresasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmpresaDto: UpdateEmpresaDto) {
-    return this.empresasService.update(+id, updateEmpresaDto);
-  }
+  update(@Param('id') id: string, 
+  @Body() Body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Empresa actualizada",
+      "id" : id,
+      "data": this.empresasService.update(+id,Body)
+  };
+}
 
   @Delete(':id')
   remove(@Param('id') id: string) {

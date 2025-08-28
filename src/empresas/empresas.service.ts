@@ -7,23 +7,42 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EmpresasService {
   constructor(private  prisma: PrismaService
   ) {}
-  create(createEmpresaDto: CreateEmpresaDto) {
-    return 'This action adds a new empresa';
-  }
+  create(body: any) {
+    return this.prisma.empresas.create({
+      data:body
+    })
+    }
 
   findAll() {
-    return this.prisma.empresas.findMany()
+    return this.prisma.empresas.findMany({
+      orderBy:{name:'desc'}
+    })
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} empresa`;
+   return this.prisma.empresas.findFirst({
+    where:{id:id}
+   })
+  }
+  
+
+   async update(id: number, 
+                body: any) {
+    return  await this. prisma. empresas.update ({
+      where:{id:id},
+      data: body
+   })
   }
 
-  update(id: number, updateEmpresaDto: UpdateEmpresaDto) {
-    return `This action updates a #${id} empresa`;
-  }
 
-  remove(id: number) {
-    return `This action removes a #${id} empresa`;
+  async remove(id: number) {
+    await this.prisma.empresas.delete({
+      where:{id:id}
+    });
+    return {
+      "exito": true,
+      "mensaje": "Empresa eliminada",
+      "id" : id
   }
+}
 }

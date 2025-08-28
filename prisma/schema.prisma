@@ -11,19 +11,25 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "mysql://root:admin@localhost:3315/prisma_3147251"
 }
 model empresas{
   id Int @id @default(autoincrement())
-  name String 
+  name String
+  Nit Int
+  Direccion String
+  Telefono Int
+  Email String
+  Localidad String
+  Ciudad String
   conductor conductores[]
 }
 model conductores{
     id Int @id @default(autoincrement())
-    name String
+    Nombre String
     email String 
-    phone Int
-    licenseNumber Int
-    empresa_id Int
-    empresa empresas @relation(fields: [empresa_id], references: [id])
+    Telefono Int
+    Numero_Licencia Int
+    empresas_id Int
+    empresas empresas @relation(fields: [empresas_id], references: [id])
 }
